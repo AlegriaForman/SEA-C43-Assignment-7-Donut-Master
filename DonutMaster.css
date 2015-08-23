@@ -1,0 +1,66 @@
+h1 {
+  color: white;
+  font-size: 65px;
+  text-align: center;
+  background-color:black;
+  width: 100%;
+  padding: 5px 0 5px 0;
+}
+
+table {
+  padding: 80px 0 80px 0;
+  margin-left: 180px;
+}
+
+nav button {
+  display: inline-block;
+  color: black;
+  font-size: 18px;
+  text-align: left;
+  max-width: 400px;
+}
+
+p {
+  font-size: 18px;
+  color: white;
+}
+
+tr.even td, tr.even th {
+  background-color: #95b9c7;
+  text-align: center;
+  font-size: 20px;
+}
+
+tr.odd td, tr.odd th {
+  background-color: #bcc6cc;
+  text-align: center;
+  font-size: 20px;
+}
+
+body {
+  font-family: Arial Verdana Sans-serif;
+  background-image: url("http://timali4man.com/Images/Donuts3.jpeg") ;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  min-height: 100%;
+}
+
+figure {
+  color: black;
+  font-size: 40px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.head {
+  background-color: #6d7b8d;
+  color: white;
+  font-size: 25px;
+}
+
+#donutSlide {
+  float: right;
+  margin-top: -150px;
+  margin-right: 50px
+}
