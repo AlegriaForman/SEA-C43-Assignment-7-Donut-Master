@@ -13,6 +13,12 @@ var TopPot = function(storeLoc, minCustPerHour, maxCustPerHour,
   this.donutsPerDay = function() {
     return Math.floor(this.donutsPerHour() * this.hours);
   };
+  this.toHtml = function() {
+    return '<td class="storeLoc">' + this.storeLoc + '</td>' +
+    '<td class="donutsPerHour">' + this.donutsPerHour() + '</td>' +
+    '<td class="donutsPerDay">' + this.donutsPerDay() + '</td>' +
+    '<td class="hours">' + this.hours + '</td>';
+  };
 };
 
 var DonutMaster = function() {
@@ -32,6 +38,13 @@ var DonutMaster = function() {
         this.storeList[index].hours);
     }
   };
+  this.toHtml = function() {
+    $.each(this.storeList, function(index, store) {
+      $tr = $('<tr>');
+        $tr.append(store.toHtml());
+        $('#info').append($tr);
+    });
+  };
 };
 
 var dm = new DonutMaster();
@@ -42,60 +55,66 @@ dm.addStore('South Lake Union', 9, 23, 6.33, 11);
 dm.addStore('Wedgewood', 2, 28, 1.25, 10);
 dm.addStore('Ballard', 8, 58, 3.75, 10);
 dm.addStore('Pike Market', 9, 55, 5, 12);
+
+document.getElementById('addButton').addEventListener('click', function() {
+  var newStoreLoc = document.getElementById('newLocation').value;
+  var newMinCust = document.getElementById('newMinCustPh').value;
+  var newMaxCust = document.getElementById('newMaxCustPh').value;
+  var newAvgDon = document.getElementById('newAvgDonuts').value;
+  var newHoursOpen = document.getElementById('newHoursOpen').value;
+  var newStoreTp = [newStoreLoc, newMinCust, newMaxCust, newAvgDon, newHoursOpen];
+  dm.addStore(newStoreTp[0], newStoreTp[1], newStoreTp[2], newStoreTp[3], newStoreTp[4]);
+  $('#info tr:gt(0)').remove();
+    dm.toHtml();
+});
+
 dm.generateReport();
 
 $(function(){
-  $('#Downtown').html(dm.donutsCount[0]);
-  $('#d1').html(dm.donutsCount[1]);
-  $('#d2').html(dm.donutsCount[2]);
-  $('#d3').html(dm.donutsCount[3]);
-  $('#Capitol').html(dm.donutsCount[4]);
-  $('#c1').html(dm.donutsCount[5]);
-  $('#c2').html(dm.donutsCount[6]);
-  $('#c3').html(dm.donutsCount[7]);
-  $('#South').html(dm.donutsCount[8]);
-  $('#s1').html(dm.donutsCount[9]);
-  $('#s2').html(dm.donutsCount[10]);
-  $('#s3').html(dm.donutsCount[11]);
-  $('#Wedgewood').html(dm.donutsCount[12]);
-  $('#w1').html(dm.donutsCount[13]);
-  $('#w2').html(dm.donutsCount[14]);
-  $('#w3').html(dm.donutsCount[15]);
-  $('#Ballard').html(dm.donutsCount[16]);
-  $('#b1').html(dm.donutsCount[17]);
-  $('#b2').html(dm.donutsCount[18]);
-  $('#b3').html(dm.donutsCount[19]);
-  $('#Pike').html(dm.donutsCount[20]);
-  $('#p1').html(dm.donutsCount[21]);
-  $('#p2').html(dm.donutsCount[22]);
-  $('#p3').html(dm.donutsCount[23]);
-  $(".down").hide();
-  $(".d1").on("click", function(){
-    $(".down").toggle();
+
+  $('#info').hide();
+  $('#donutStores').one('click', function() {
+    $('#info tr:gt(0)').remove();
+  dm.toHtml();
   });
 
-  $(".cap").hide();
-  $(".c1").click(function(){
-    $(".cap").toggle();
+  $('#donutStores').on('click', function(){
+    $('#info').slideToggle("slow", "linear");
   });
 
-  $(".south").hide();
-  $(".s1").click(function(){
-    $(".south").toggle();
+  $('#explode').click(function(){
+    $('#donutSlide').toggle('explode', { pieces: 400 }, 1500);
+  $('#explode').hide();
   });
 
-  $(".wedge").hide();
-  $(".w1").click(function(){
+  $('.downt').hide();
+  $('.d1').hover(function(){
+    $('.downt').toggle();
+  });
+
+  $('.cap').hide();
+  $('.c1').hover(function(){
+    $('.cap').toggle();
+  });
+
+  $('.south').hide();
+  $('.s1').hover(function(){
+    $('.south').toggle();
+  });
+
+  $('.wedge').hide();
+  $('.w1').hover(function(){
     $(".wedge").toggle();
   });
 
-  $(".ballard").hide();
-  $(".b1").click(function(){
-    $(".ballard").toggle();
+  $('.ballard').hide();
+  $('.b1').hover(function(){
+    $('.ballard').toggle();
   });
 
-  $(".pike").hide();
-  $(".p1").click(function(){
-    $(".pike").toggle();
+  $('.pike').hide();
+  $('.p1').hover(function(){
+    $('.pike').toggle();
   });
+
 });
